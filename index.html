@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./src/output.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-100 p-6">
+    <div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-md">
+      <h1 class="text-2xl font-bold mb-4 text-center">
+        FC Wedding Link Generator
+      </h1>
+
+      <!-- Input nama -->
+      <label class="block mb-2 font-semibold"
+        >Masukkan nama (satu nama per baris):</label
+      >
+      <textarea
+        id="namesInput"
+        class="w-full p-2 border rounded mb-4"
+        rows="5"
+        placeholder="Fahri
+Mizan Sutandri
+Dwi Saputra"
+      ></textarea>
+
+      <button
+        id="generateBtn"
+        class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 mb-4"
+      >
+        Generate Links
+      </button>
+
+      <!-- Hasil -->
+      <div id="results" class="space-y-2"></div>
+    </div>
+
+    <script>
+      const baseURL = "https://www.fclovejourney.site/?n=";
+
+      const generateBtn = document.getElementById("generateBtn");
+      const namesInput = document.getElementById("namesInput");
+      const results = document.getElementById("results");
+
+      generateBtn.addEventListener("click", () => {
+        results.innerHTML = "";
+        const names = namesInput.value
+          .split("\n")
+          .map((n) => n.trim())
+          .filter((n) => n);
+
+        names.forEach((name) => {
+          const url = baseURL + encodeURIComponent(name);
+
+          const div = document.createElement("div");
+          div.className =
+            "flex items-center justify-between bg-gray-100 p-2 rounded";
+
+          const link = document.createElement("a");
+          link.href = url;
+          link.target = "_blank";
+          link.textContent = url;
+          link.className = "text-blue-600 underline break-all";
+
+          const copyBtn = document.createElement("button");
+          copyBtn.textContent = "Copy";
+          copyBtn.className =
+            "ml-2 bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600";
+          copyBtn.addEventListener("click", () => {
+            navigator.clipboard.writeText(url);
+            copyBtn.textContent = "Copied!";
+            setTimeout(() => (copyBtn.textContent = "Copy"), 1500);
+          });
+
+          div.appendChild(link);
+          div.appendChild(copyBtn);
+          results.appendChild(div);
+        });
+      });
+    </script>
+  </body>
+</html>
