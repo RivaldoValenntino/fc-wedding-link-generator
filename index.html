@@ -50,7 +50,8 @@ Dwi Saputra"
           .filter((n) => n);
 
         names.forEach((name) => {
-          const url = baseURL + encodeURIComponent(name);
+          // ganti spasi jadi +
+          const url = baseURL + name.replace(/\s+/g, "+");
 
           const div = document.createElement("div");
           div.className =
