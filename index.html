@@ -21,7 +21,8 @@
         rows="5"
         placeholder="Fahri
 Mizan Sutandri
-Dwi Saputra"
+Dwi Saputra
+Bapak Fajar & Keluarga"
       ></textarea>
 
       <button
@@ -50,8 +51,9 @@ Dwi Saputra"
           .filter((n) => n);
 
         names.forEach((name) => {
-          // ganti spasi jadi +
-          const url = baseURL + name.replace(/\s+/g, "+");
+          // Encode nama -> lalu ubah %20 jadi +
+          const encodedName = encodeURIComponent(name).replace(/%20/g, "+");
+          const url = baseURL + encodedName;
 
           const div = document.createElement("div");
           div.className =
